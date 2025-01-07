@@ -1,0 +1,11 @@
+groups:
+- name: DiskSpaceAlerts
+  rules:
+    - alert: LowDiskSpace
+      expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.2
+      for: 5s
+      labels:
+        severity: warning
+      annotations:
+        summary: "Low disk space on instance {{ $labels.instance }}"
+        description: "Less than 20% disk space available on {{ $labels.device }}."
